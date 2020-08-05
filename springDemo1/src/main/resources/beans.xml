@@ -5,9 +5,20 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <!-- 配置一个bean 【对象】-->
+    <!-- 第一种方式：配置一个bean，其实就是new一个实现类 -->
     <bean id="userService" class="com.ahua.service.UserServiceImpl">
         <!-- 依赖注入数据，调用属性的set方法 -->
-        <property name="name" value="zhangsan"></property>
+        <property name="name" value="zhangsan"/>
     </bean>
+
+    <!-- 第二种方式：通过静态工厂方法-->
+    <bean id="userService2" class="com.ahua.factory.UserServiceFactory1" factory-method="createUserService">
+        <constructor-arg value="zhangsan"></constructor-arg>
+        <property name="name" value="lisi"></property>
+    </bean>
+
+
+    <!--第三种方式：实例工厂-->
+    <bean id="factory2" class="com.ahua.factory.UserServiceFactory2"></bean>
+    <bean id="userService3" factory-bean="factory2" factory-method="createUserService"></bean>
 </beans>
